@@ -10,7 +10,7 @@ VERSION = os.getenv('APP_VERSION', '1.0.0')
 @app.route('/')
 def home():
     return jsonify({
-        'message': 'Chào mừng đến với Flask CI/CD Demo!',
+        'message': 'Chào mừng đến với Flask CI/CD Demo! sau khi push code lên github',
         'version': VERSION,
         'timestamp': datetime.now().isoformat()
     })
