@@ -13,9 +13,7 @@ services:
       # Persist Jenkins data
       - jenkins_home:/var/jenkins_home
       # Mount Docker socket để Jenkins có thể build Docker images
-      - /var/run/docker.sock:/var/run/docker.sock
-      # Mount Docker binary (cho Windows, có thể cần điều chỉnh)
-      - docker-bin:/usr/bin/docker
+      - /var/run/docker.sock:/var/run/docker.sock:rw
     environment:
       - JAVA_OPTS=-Djenkins.install.runSetupWizard=false
     networks:
@@ -24,8 +22,6 @@ services:
 
 volumes:
   jenkins_home:
-    driver: local
-  docker-bin:
     driver: local
 
 networks:
