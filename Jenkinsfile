@@ -50,6 +50,7 @@ pipeline {
                     sh """
                         docker run -d \
                             --name ${CONTAINER_NAME} \
+                            --network jenkins-cicd_jenkins-network \
                             -p ${APP_PORT}:5000 \
                             -e APP_VERSION=${IMAGE_TAG} \
                             --restart unless-stopped \
@@ -66,9 +67,9 @@ pipeline {
                     // Đợi container khởi động
                     sleep(time: 5, unit: 'SECONDS')
                     
-                    // Health check
+                    // Health check - dùng container name thay vì localhost
                     sh """
-                        curl -f http://localhost:${APP_PORT}/health || exit 1
+                        curl -f http://${CONTAINER_NAME}:5000/health || exit 1
                     """
                     
                     echo 'Deployment successful! ✓'
